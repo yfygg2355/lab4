@@ -1,0 +1,105 @@
+<!-- info.html -->
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ласкаво просимо</title>
+    <!-- Додайте ваші стилі тут, якщо потрібно -->
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        form {
+            max-width: 300px;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ласкаво просимо, {{ username }}</h2>
+    <a href="{{ url_for('logout') }}">Вийти</a>
+
+    <h3>Додавання/видалення кукі</h3>
+    <form method="post" action="{{ url_for('info') }}">
+        <input type="hidden" name="action" value="add_cookie">
+        <label for="key">Ключ:</label>
+        <input type="text" name="key" required><br>
+        <label for="value">Значення:</label>
+        <input type="text" name="value" required><br>
+        <label for="expiration_time">Термін дії (хв):</label>
+        <input type="number" name="expiration_time" required><br>
+        <input type="submit" value="Додати кукі">
+    </form>
+
+    <form method="post" action="{{ url_for('info') }}">
+        <input type="hidden" name="action" value="delete_cookie">
+        <label for="key_to_delete">Ключ для видалення (залиште порожнім для видалення всіх):</label>
+        <input type="text" name="key_to_delete"><br>
+        <input type="submit" value="Видалити кукі">
+    </form>
+
+    <h3>Збережені кукі</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Ключ</th>
+                <th>Значення</th>
+                <th>Термін дії</th>
+                <th>Час створення</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in request.cookies.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                    <td>{{ request.cookies[key].expires }}</td>
+                    <td>{{ request.cookies[key].created }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h3>Зміна пароля</h3>
+    <form method="post" action="{{ url_for('change_password') }}">
+        <label for="new_password">Новий пароль:</label>
+        <input type="password" name="new_password" required><br>
+        <input type="submit" value="Змінити пароль">
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,39 @@
+ <!-- base -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Resume{% endblock %}</title>
+
+
+    <link rel="stylesheet" Third party support href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384- BVY11SIFeKidGmJRAkycuHAHRg320mUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap- theme.min.css" integrity="sha384-rHyoN1iRsVXV4nDeJutinGas CJu7uwjduw9VLvRYooPp2bWYgrgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5101b027qvyjSMfHjOMaLkfuWVXZxUPnCJA712mCWNIpG9mGCD8wGNICPD7Txa" crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+    <nav class ="navbar navbar-default">
+        <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('page1') }}">Page 1</a></li>
+            <li><a href="{{ url_for('page2') }}">Page 2</a></li>
+            <li><a href="{{ url_for('page3') }}">Page 3</a></li>
+        </ul>
+
+    </div>
+    </nav>
+
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p><small>OS: {{ os.name }}</small></p>>
+        <p><small>User Agent: {{ request.user_agent }}</small></p>>
+        <p><small>Current Time: {{ current_time }}</small></p>>
+    </footer>
+</body>
+</html>
